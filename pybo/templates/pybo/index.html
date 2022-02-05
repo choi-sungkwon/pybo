@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if question_list %}
+        <ul>
+            {% for question in question_list %}
+                <li>
+                    <a href="{% url 'pybo:detail' question.id %}"> {{ question.subject }}</a>
+                    <a href="{% url 'pybo:question_update' question.id %}">수정</a>
+                    <a href="{% url 'pybo:question_delete' question.id %}">삭제</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+    <p>등록된 질문이 없습니다.</p>
+    {% endif %}
+    ---------- 질문등록하기 ----------
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="질문저장">
+    </form>
+
+{% endblock %}

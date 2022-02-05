@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <h5>{{ question.subject }}</h5>
+    </div>
+    <div>
+        <p>{{ question.answer_set.count }}개의 답변이 있습니다</p>
+    </div>
+    <div>
+        {% for answer in question.answer_set.all %}
+            <li>
+                {{ answer.content }}
+                <a href="{% url 'pybo:answer_update' answer.id %}">수정</a>
+                <a href="{% url 'pybo:answer_delete' answer.id %}">삭제</a>
+            </li>
+        {% endfor %}
+    </div>
+
+    <div>
+        <p>========= 답변등록 ========== </p>
+    </div>
+    <div>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="저장">
+        </form>
+    </div>
+
+{% endblock %}
